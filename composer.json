@@ -1,0 +1,15 @@
+{
+    "name": "zylal/phpmvc-framework",
+    "authors": [
+        {
+            "name": "ZylalMinollari",
+            "email": "zminollari@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "app\\" : "./"
+        }
+    },
+    "require": {}
+}
