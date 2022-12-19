@@ -7,7 +7,11 @@
         <div class="col">
             <div class="mb-3">
                 <label>First Name</label>
-                <input type="text" name="fristname" class="form-control">
+                <input type="text" name="firstname" value="<?php echo $model->firstname ?>"
+                    class="form-control <?php echo $model->hasError('firstname') ? ' is-invalid ' : '' ?>">
+                <div class="invalid-feedback">
+                    <?php echo $model->getFirstError($attribute) ?>
+                </div>
             </div>
         </div>
         <div class="col">
@@ -23,11 +27,11 @@
     </div>
     <div class="mb-3">
         <label>Password</label>
-        <input type="passwod" name="password" class="form-control">
+        <input type="password" name="password" class="form-control">
     </div>
     <div class="mb-3">
         <label>Confirm Password</label>
-        <input type="password" name="confirmPassword" class="form-control">
+        <input type="password" name="passwordConfirm" class="form-control">
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>

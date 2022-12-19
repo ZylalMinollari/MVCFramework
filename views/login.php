@@ -1,3 +1,3 @@
 <?php ?>
 
-<h1>Logi In</h1>
+<h1>Log In</h1>
