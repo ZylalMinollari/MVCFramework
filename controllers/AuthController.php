@@ -2,8 +2,9 @@
 
 namespace app\controllers;
 
-use app\core\Controller;
 use app\core\Request;
+use app\core\Controller;
+use app\models\RegisterModel;
 
 /**
  * Summary of AuthController
@@ -18,12 +19,23 @@ class AuthController extends Controller
         return $this->render('login');
     }
 
-    public function register(Request $request) 
+    public function register(Request $request)
     {
         $this->setLayout('auth');
-        if($request->isPost()) {
-            return "Hendeling Submited Data";
+        $registerModel = new RegisterModel();
+        if ($request->isPost()) {
+            $registerModel->loadData($request->getBody());
+            if ($registerModel->validate() && $registerModel->register()) {
+                return 'Success';
+            }
+
+            return $this->render('register', [
+                'model' => $registerModel
+            ]);
+            // return "Hendeling Submited Data";
         }
-        return $this->render('register');
+        return $this->render('register', [
+            'model' => $registerModel
+        ]);
     }
 }

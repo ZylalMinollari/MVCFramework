@@ -37,9 +37,9 @@ class Aplication
     {
         return $this->controller;
     }
-    public function setControler()
+    public function setController(Controller $controller)
     {
-        return $this->controller;
+        $this->controller = $controller;
     }
 
 }
