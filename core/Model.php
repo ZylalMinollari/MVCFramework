@@ -10,9 +10,9 @@ namespace app\core;
 abstract class Model
 {
     public const RULE_REQUIRED = 'required';
-    public const RULE_EMAIL = 'required';
-    public const RULE_MIN = 'required';
-    public const RULE_MAX = 'required';
+    public const RULE_EMAIL = 'email';
+    public const RULE_MIN = 'min';
+    public const RULE_MAX = 'max';
     public const RULE_MATCH = 'match';
     public function loadData($data)
     {
@@ -23,6 +23,10 @@ abstract class Model
         }
     }
 
+    /**
+     * Summary of rules
+     * @return array
+     */
     abstract public function rules(): array;
 
     public array $errors = [];
