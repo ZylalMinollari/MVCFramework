@@ -11,5 +11,13 @@
             "app\\" : "./"
         }
     },
-    "require": {}
+    "require": {
+        "vlucas/phpdotenv": "^5.5"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.7",
+        "phpmd/phpmd": "^2.13",
+        "phpstan/phpstan": "^1.10",
+        "phpunit/phpunit": "^9.6"
+    }
 }
