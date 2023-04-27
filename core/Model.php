@@ -27,7 +27,10 @@ abstract class Model
      * Summary of rules
      * @return array
      */
-    abstract public function rules(): array;
+    public function rules()
+    {
+        return [];
+    }
 
     public array $errors = [];
     public function validate()
@@ -36,8 +39,7 @@ abstract class Model
             $value = $this->{$attribute};
             foreach ($rules as $rule) {
                 $ruleName = $rule;
-
-                if (!is_string($ruleName)) {
+                if (!is_string($rule)) {
                     $ruleName = $rule[0];
                 }
 
@@ -49,13 +51,13 @@ abstract class Model
                 }
 
                 if ($ruleName === self::RULE_MIN && strlen($value) < $rule['min']) {
-                    $this->addError($attribute, self::RULE_MIN,$rule);
+                    $this->addError($attribute, self::RULE_MIN, ['min' => $rule['min']]);
                 }
                 if ($ruleName === self::RULE_MAX && strlen($value) > $rule['max']) {
-                    $this->addError($attribute, self::RULE_MAX, $rule);
+                    $this->addError($attribute, self::RULE_MAX);
                 }
                 if ($ruleName === self::RULE_MATCH && $value !== $this->{$rule['match']}) {
-                    $this->addError($attribute, self::RULE_MATCH, $rule);
+                    $this->addError($attribute, self::RULE_MATCH, ['match' => $rule['match']]);
                 }
             }
         }
@@ -65,12 +67,16 @@ abstract class Model
 
     public function addError(string $attribute, string $rule, $params = [])
     {
-        $message = $this->errorMessages()[$rule] ?? '';
+        $errorMessage = $this->errorMessage($rule);
         foreach ($params as $key => $value) {
-            $message = str_replace("{{$key}}", $value, $message);
+            $errorMessage = str_replace("{{$key}}", $value, $errorMessage);
         }
+        $this->errors[$attribute][] = $errorMessage;
+    }
 
-        $this->errors[$attribute][] = $message;
+    public function errorMessage($rule)
+    {
+        return $this->errorMessages()[$rule];
     }
 
     public function errorMessages()
@@ -78,8 +84,8 @@ abstract class Model
         return [
             self::RULE_REQUIRED => 'This field is required',
             self::RULE_EMAIL => 'This field must be valid email address',
-            self::RULE_MIN => 'Min length of this filed must be {min}',
-            self::RULE_MAX => 'Max length of this filed must be {max}',
+            self::RULE_MIN => 'Min length of this field must be {min}',
+            self::RULE_MAX => 'Max length of this field must be {max}',
             self::RULE_MATCH => 'This field must be the same as {match}',
         ];
     }
@@ -88,7 +94,9 @@ abstract class Model
         return $this->errors[$attribute] ?? false;
     }
 
-    public function getFirstError($attribute) {
-        return $this->errors[$attribute][0] ?? false;
+    public function getFirstError($attribute)
+    {
+        $errors = $this->errors[$attribute] ?? [];
+        return $errors[0] ?? '';
     }
 }
