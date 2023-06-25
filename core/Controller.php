@@ -13,10 +13,12 @@ use app\core\Aplication;
 class Controller
 {
     public string $layout = 'main';
-    public function setLayout($layout) {
+    public function setLayout($layout)
+    {
         $this->layout = $layout;
     }
-    public function render($view,$params=[]) {
+    public function render($view, $params = [])
+    {
         return Aplication::$app->router->renderView($view, $params);
     }
 }
