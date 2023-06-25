@@ -17,7 +17,7 @@ class Aplication
     public Database $db;
     public static Aplication $app;
     public Controller $controller;
-    public function __construct($rootPath,array $config)
+    public function __construct($rootPath, array $config)
     {
         self::$ROOT_DIR = $rootPath;
         self::$app = $this;
@@ -25,7 +25,6 @@ class Aplication
         $this->response = new Response();
         $this->router = new Router($this->request, $this->response);
         $this->db = new Database($config['db']);
-
     }
 
     public function run()
@@ -42,5 +41,4 @@ class Aplication
     {
         $this->controller = $controller;
     }
-
 }
