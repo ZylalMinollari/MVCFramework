@@ -52,7 +52,6 @@ class Database
         } else {
             $this->log("All migrations are applied");
         }
-
     }
 
     public function createMigrationsTable()
@@ -77,15 +76,16 @@ class Database
     public function saveMigrations(array $migrations)
     {
 
-        $str = implode(",", array_map(fn($m) => "('$m')", $migrations));
+        $str = implode(",", array_map(fn ($m) => "('$m')", $migrations));
         $statement = $this->pdo->prepare("INSERT INTO migrations(migration) VALUES 
         $str");
 
         $statement->execute();
     }
 
-    public function prepare($sql) {
-        
+    public function prepare($sql)
+    {
+
         return $this->pdo->prepare($sql);
     }
     protected function log($message)
