@@ -1,6 +1,7 @@
 <?php
 
 namespace app\core;
+
 /**
  * Summary of Response
  * @author ZYLAL
