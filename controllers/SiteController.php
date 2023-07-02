@@ -14,7 +14,7 @@ use app\core\Request;
 class SiteController extends Controller
 {
 
-    public static function handleContact(Request $request) 
+    public static function handleContact(Request $request)
     {
         $body = $request->getBody();
         echo '<pre>';
@@ -35,7 +35,7 @@ class SiteController extends Controller
         $params = [
             "name" => "Zylal",
         ];
-        
+
         //ToDo ToCheck
         //return $this->render('home',$params);
 
