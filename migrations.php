@@ -1,9 +1,10 @@
 <?php
+
 /**
-* Summary of migrations
-* @author ZYLAL
-* @copyright (c) 2023
-*/
+ * Summary of migrations
+ * @author ZYLAL
+ * @copyright (c) 2023
+ */
 
 
 
@@ -24,6 +25,6 @@ $config = [
     ]
 ];
 
-$app = new Aplication(__DIR__,$config);
+$app = new Aplication(__DIR__, $config);
 
 $app->db->applyMigrations();
