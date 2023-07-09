@@ -19,7 +19,7 @@ $config = [
     ]
 ];
 
-$app = new Aplication(dirname(__DIR__),$config);
+$app = new Aplication(dirname(__DIR__), $config);
 
 $app->router->get('/', [SiteController::class, 'home']);
 
