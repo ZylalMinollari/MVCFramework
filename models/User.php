@@ -48,4 +48,16 @@ class User extends DbModel
         $this->password = password_hash($this->password, PASSWORD_DEFAULT);
         return parent::save();
     }
+
+    public function labels() : array
+    {
+        return [
+            'firstname' => 'First Name',
+            'lastname' => 'Last Name',
+            'email' => 'Email',
+            'password' => 'Password',
+            'passwordConfirm' => 'Password Confirm'
+
+        ];
+    }
 }
