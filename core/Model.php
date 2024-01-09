@@ -24,6 +24,20 @@ abstract class Model
         }
     }
 
+    public function attributes()
+    {
+        return [];
+    }
+
+    public function labels()
+    {
+        return [];
+    }
+
+    public function getLabel($attribute)
+    {
+        return $this->labels()[$attribute] ?? $attribute;
+    }
     /**
      * Summary of rules
      * @return array
@@ -58,7 +72,8 @@ abstract class Model
                     $this->addError($attribute, self::RULE_MAX);
                 }
                 if ($ruleName === self::RULE_MATCH && $value !== $this->{$rule['match']}) {
-                    $this->addError($attribute, self::RULE_MATCH, ['match' => $rule['match']]);
+                    $rule['match'] = $this->getLabel($rule['match']);
+                    $this->addError($attribute, self::RULE_MATCH, $rule);
                 }
                 if ($ruleName === self::RULE_UNIQUE) {
 
@@ -70,8 +85,8 @@ abstract class Model
                     $statement->execute();
                     $record = $statement->fetchObject();
 
-                    if($record) {
-                        $this->addError($attribute, self::RULE_UNIQUE, ['field' => $attribute] );
+                    if ($record) {
+                        $this->addError($attribute, self::RULE_UNIQUE, ['field' => $this->getLabel($attribute)]);
                     }
                 }
             }
@@ -106,7 +121,8 @@ abstract class Model
         ];
     }
 
-    public function hasError($attribute) {
+    public function hasError($attribute)
+    {
         return $this->errors[$attribute] ?? false;
     }
 
