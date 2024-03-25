@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\core\Aplication;
 use app\core\Model;
 
 class LoginForm extends Model
@@ -38,6 +39,7 @@ class LoginForm extends Model
             $this->addError('password', 'Password incorrect');
             return false;
         }
-        return true;
+        return Aplication::$app->login($user);
+        //return true;
     }
 }

@@ -95,6 +95,7 @@ abstract class Model
         return empty($this->errors);
     }
 
+    // Need to refctor this to addErrorFroRule
     public function addError(string $attribute, string $rule, $params = [])
     {
         $errorMessage = $this->errorMessage($rule);
