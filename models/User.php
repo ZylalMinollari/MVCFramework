@@ -1,15 +1,17 @@
 <?php
 namespace app\models;
 
-use app\core\DbModel;
 use app\core\Model;
+use app\core\DbModel;
+use app\core\UserModel;
+use app\core\UserMoodel;
 
 /**
  * Summary of RegisteModel
  * @author ZYLAL
  * @copyright (c) 2022
  */
-class User extends DbModel
+class User extends UserModel
 {
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;
@@ -25,6 +27,11 @@ class User extends DbModel
     public static function tableName(): string {
 
         return 'users';
+    }
+
+    public function primaryKey(): string
+    {
+        return 'id';
     }
 
     public function attributes(): array {
@@ -47,6 +54,11 @@ class User extends DbModel
         $this->status = self::STATUS_INACTIVE;
         $this->password = password_hash($this->password, PASSWORD_DEFAULT);
         return parent::save();
+    }
+
+    public function getDisplayName() : string
+    {
+        return $this->firstname. ''. $this->lastname;
     }
 
     public function labels() : array
